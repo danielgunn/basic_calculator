@@ -104,7 +104,7 @@ def evaluate_expression(line_in):
     print("POSTFIX",postfix_tokens)
 
     # Evaluate the RPN
-    operator_stack=[]
+    operator_stack=Stack()
     for x in postfix_tokens:
         if x in operators_precedence.keys():
             a = float(operator_stack.pop())
@@ -118,9 +118,9 @@ def evaluate_expression(line_in):
                 c = a * b
             else:
                 c = b / a
-            operator_stack.append(c)
+            operator_stack.push(c)
         else:
-            operator_stack.append(x)
+            operator_stack.push(x)
     answer = operator_stack.pop()
     return answer
 
