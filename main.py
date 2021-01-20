@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from stack import Stack
 
 # global variable: set of operators and their precedence score
 operators_precedence = {"+": 1, "-": 1, "*": 2, "/": 2, ")": 0, "(": 0}
@@ -19,7 +20,7 @@ def main():
     ]
 
     # Create the window
-    window = sg.Window("Gunn Calculator", layout)
+    window = sg.Window("Simple Calculator", layout)
 
     # Create an event loop
     ans = ""
@@ -40,31 +41,15 @@ def main():
 
     window.close()
 
-# Stack Data Structure - A Last in first out collection (LIFO)
-class Stack:
-    def __init__(self):
-        self.stack = []
 
-    def push(self, data):
-        #print("push called:", data)
-        self.stack.append(data)
 
-    def pop(self):
-        if self.is_empty():
-            return None
-        return self.stack.pop()
-
-    def peek(self):
-        if self.is_empty():
-            return None
-        return self.stack[-1]
-
-    def is_empty(self):
-        return len(self.stack) == 0
-
-# Shunting Yard Algorithm
-# Returns a postfix set of tokens given an infix set
 def shunting_yard_algorithm(infix_tokens):
+    """
+    Shunting Yard Algorithm
+
+    :param infix_tokens: a list of tokens in infix order
+    :return: a postfix set of tokens given an infix set
+    """
     operator_stack = Stack()
     postfix_tokens = []
     depth = 0  # how many layers deep of brackets are we?
@@ -99,12 +84,20 @@ def shunting_yard_algorithm(infix_tokens):
 
 
 def evaluate_expression(line_in):
+    """
+    evaluate a given expression (uses the shunting yard algorithm)
+
+    supported mathematical symbols: + - / ( )
+
+    :param line_in: a text line (space seperated) expression to evaluate
+    :return: the result of the calculation
+    """
     infix_tokens = line_in.split()
     postfix_tokens = shunting_yard_algorithm(infix_tokens)
     print("POSTFIX",postfix_tokens)
 
     # Evaluate the RPN
-    operator_stack=Stack()
+    operator_stack = Stack()
     for x in postfix_tokens:
         if x in operators_precedence.keys():
             a = float(operator_stack.pop())

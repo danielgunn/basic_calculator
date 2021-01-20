@@ -4,7 +4,13 @@ This program is just a basic (as in simple) calculator for demonstration purpose
 
 ![demo animation](demo.gif)
 
-## Notable algorithms and data structures used:
+## Install
+- To install the required packages, type this in your console:
+```sh
+pip install -r requirements.txt
+```
+
+## CS Theory used:
 - [The Shunting Yard Algorithm](http://en.wikipedia.org/wiki/Shunting-yard_algorithm)
 - [Stack](http://en.wikipedia.org/wiki/Stack_(abstract_data_type))
 - [Infix notation](http://en.wikipedia.org/wiki/Infix_notation)
